@@ -1,20 +1,20 @@
 #!groovy
 // Check hp (or IP address) properties
-properties([disableConcurrentBuilds()])
+properties([disableConcurrentBuilds()]) # Запретить одновременные задачи
 
 pipline {
   agent {
-          label 'master'
-          }
-     options {
-              buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-              timestampes()
-        }
-   stages {
-              stage("Preparations") {
-                        steps {
-                                  sh 'ssh root@hp \'hostname\''
-                        }
-               }
-        }
+    label 'master'
+    }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+    timestampes()
+  }
+  stages {
+    stage("Preparations") {
+      steps {
+        sh 'ssh root@hp \'hostname\''
+      }
+   }
+  }
 }
