@@ -6,6 +6,7 @@ pipeline {
   agent {	// агент выбирается по метке Мастер
     label 'built-in'
     }
+  triggers { pollSCM('* * * * *') }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))	// Храним логи последних 10 сборок, и 10 артефактов
   }
