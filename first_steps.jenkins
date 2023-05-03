@@ -2,7 +2,7 @@
 // Check hp (or IP address) properties
 properties([disableConcurrentBuilds()]) // Запретить одновременные задачи
 
-pipline {
+pipeline {
   agent {	// агент выбирается по метке Мастер
     label 'master'
     }
