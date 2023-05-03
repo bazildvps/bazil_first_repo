@@ -1,0 +1,28 @@
+#!groovy
+// Check hp (or IP address) properties
+properties([disableConcurrentBuilds()]) // Запретить одновременные задачи
+
+pipeline {
+  agent {	// агент выбирается по метке Мастер
+    label 'built-in'
+    }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))	// Храним логи последних 10 сборок, и 10 артефактов
+    timestamps()    // Указываем, что в выводе/результате хотим видеть временные отметки
+  }
+  stages {
+    stage("create docker image") {
+      steps {
+        echo "================start building image===================="
+        dir ('docker/toolbox') {
+          sh 'docker build . '
+        }
+      }
+   }
+    stage("Second step") {
+      steps {
+        sh 'ssh root@hp \'uptime\''
+      }
+   }
+}
+}
