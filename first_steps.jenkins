@@ -2,18 +2,18 @@
 // Check hp (or IP address) properties
 properties([disableConcurrentBuilds()]) // Запретить одновременные задачи
 
-pipeline {
+pipline {
   agent {	// агент выбирается по метке Мастер
-    label 'main'
+    label 'master'
     }
   options {
     buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))	// Храним логи последних 10 сборок, и 10 артефактов 
-    }
+  }
   stages {
     stage("First step") {
       steps {
         sh 'ssh root@hp \'hostname\''
       }
-    }
+   }
   }
 }
