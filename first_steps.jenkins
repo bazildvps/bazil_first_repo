@@ -7,7 +7,8 @@ pipeline {
     label 'built-in'
     }
   options {
-    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))	// Храним логи последних 10 сборок, и 10 артефактов 
+    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))	// Храним логи последних 10 сборок, и 10 артефактов
+    timestamps()
   }
   stages {
     stage("First step") {
