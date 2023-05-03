@@ -8,7 +8,7 @@ pipeline {
     }
   options {
     buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))	// Храним логи последних 10 сборок, и 10 артефактов
-    timestamps()
+    timestamps()    // Указываем, что в выводе/результате хотим видеть временные отметки
   }
   stages {
     stage("First step") {
