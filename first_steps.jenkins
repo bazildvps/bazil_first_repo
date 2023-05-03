@@ -4,7 +4,7 @@ properties([disableConcurrentBuilds()]) // Запретить одновреме
 
 pipeline {
   agent {	// агент выбирается по метке Мастер
-    label 'master'
+    label 'built-in'
     }
   options {
     buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))	// Храним логи последних 10 сборок, и 10 артефактов 
