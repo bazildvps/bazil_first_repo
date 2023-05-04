@@ -6,7 +6,7 @@ pipeline {
   agent {	// агент выбирается по метке Мастер
     label 'built-in'
     }
-  triggers { pollSCM('* * * * *') }
+  triggers { pollSCM('* * * * *') }   // Добавляем триггер для ежеминутного опроса GIT на наличие изменений, если есть, запускаем задачу
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))	// Храним логи последних 10 сборок, и 10 артефактов
   }
@@ -15,7 +15,7 @@ pipeline {
       steps {
         echo "================start building image===================="
         dir ('docker/toolbox') {
-          sh 'docker build . '
+          sh 'docker build -t toolbox:latest . '  // -t toolbox:latest добавляет тег имя:версия
         }
       }
    }
