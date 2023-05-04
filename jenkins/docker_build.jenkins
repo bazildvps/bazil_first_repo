@@ -11,6 +11,16 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))	// Храним логи последних 10 сборок, и 10 артефактов
   }
   stages {
+    stage("docker login") {
+      steps {
+        echo "=====================docker login==================="
+        withCredantials([usernamePassword(credentialsID: 'dockerhub_bazildvps', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          sh """
+          docker login -u $USERNAME -p $PASSWORD
+          """
+        }
+      }
+    }
     stage("create docker image") {
       steps {
         echo "================start building image===================="
@@ -19,5 +29,13 @@ pipeline {
         }
       }
    }
-}
+    stage("docker push") {
+      steps {
+        echo "================start pushing image====================="
+        sh '''
+        docker push bazildvps/toolbox:latest
+        '''
+      }
+    }
+  }
 }
